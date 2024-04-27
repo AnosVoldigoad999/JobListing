@@ -35,20 +35,86 @@ body{
   background-color: var(--Desaturated-Dark-Cyan);
 }
 
+.filterCont{
+  display: flex;
+  position: relative;
+  margin: 0 auto;
+  /*margin-top: 9.5%;*/
+  background-color: white;
+  box-shadow: 0px 0px 5px var(--Dark-Grayish-Cyan);
+  /*border: 1px solid red;*/
+  z-index: 3;
+  height: 50px;
+  width: 61%;
+  border-radius: 5px;
+  align-items: center;
+  padding: 5px 30px;
+  justify-content: space-between;
+}
+
+.filters{
+  width: 90%;
+  /*border: 1px solid red;*/
+  display: flex;
+  overflow-x: scroll;
+  padding: 2px;
+}
+
+.filters::-webkit-scrollbar{
+  display: none;
+}
+
+.filter{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /*border: 1px solid red;*/
+  width: 100px;
+  padding-left: 5px;
+  height: fit-content;
+  border-radius: 5px;
+  background-color: var(--Light-Grayish-Cyan-Filter-Tablets);
+  box-shadow: 0px 0px 5px var(--Dark-Grayish-Cyan);
+  margin-right: 10px;
+  font-size: 0.8em;
+}
+
+.clear{
+  color: var(--Desaturated-Dark-Cyan);
+  font-weight: 700;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.filter span{
+  color: var(--Desaturated-Dark-Cyan);
+  font-weight: 700;
+}
+
+.right{
+  background-color: var(--Desaturated-Dark-Cyan);
+  padding: 7px 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+}
+
 main{
   z-index: 2;
   width: 100vw;
   position: absolute;
   left: 0;
-  border: 1px solid red;
-  margin-top: 15%;
+  /*border: 1px solid red;*/
+  margin-top: 8.5%;
 
 }
 
 .jobs{
   width: 100%;
-  border: 1px solid blue;
+  /*border: 1px solid blue;*/
   padding: 15px 0px;
+  position: relative;
+  top: 30px;
   display: flex;
   flex-direction: column;
   height: fit-content ;
@@ -134,11 +200,14 @@ main{
   border-radius: 5px;
   font-weight: 700;
   color: var(--Desaturated-Dark-Cyan);
+  cursor: pointer;
+  font-size: 0.8em;
 }
 
 .company{
   font-weight: 700;
   color: var(--Desaturated-Dark-Cyan);
+  
 }
 
 .new{
@@ -160,5 +229,32 @@ main{
 .position{
   color: var(--Very-Dark-Grayish-Cyan);
   font-weight: 700;
-
+  cursor: pointer;
 }
+
+
+
+
+
+/*hover*/
+.position:hover{
+  color: var(--Desaturated-Dark-Cyan);
+}
+
+.cat:hover{
+  color: white;
+  background-color: var(--Desaturated-Dark-Cyan);
+}
+
+
+.right:hover{
+  background-color: var(--Very-Dark-Grayish-Cyan);
+}
+
+
+.clear:hover{
+  text-decoration: underline;
+}
+
+
+/*hover*/
