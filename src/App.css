@@ -32,6 +32,9 @@ body{
   top: 0;
   left: 0;
   width: 100vw;
+  background-image: url(../public/images/bg-header-desktop.svg);
+  width: 100%;
+  height: 156px;
   background-color: var(--Desaturated-Dark-Cyan);
 }
 
@@ -125,6 +128,8 @@ main{
 .job{
   /*border: 1px solid black;*/
   width: 60%;
+  min-width: 714px;
+  max-width: 830px;
   margin-bottom: 20px;
   height: 120px;
   display: flex;
@@ -175,11 +180,16 @@ main{
   display: flex;
   flex-direction: row;
   width: 75%;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   /*border: 1px solid red;*/
   padding: 0px 0px;
   margin: 0;
   color: var(--Dark-Grayish-Cyan);
+}
+
+.job ul li{
+  margin-right: 17px;
+  font-size: 0.8em;
 }
 
 .end{
@@ -256,5 +266,156 @@ main{
   text-decoration: underline;
 }
 
+.mobileProf{
+  display: none;
+}
 
 /*hover*/
+
+
+/*mobile*/
+@media(max-width:740px){
+  .job{
+    /*border: 1px solid red;*/
+    flex-direction: column;
+    min-width: 0px;
+    height: 290px;
+    align-items: start;
+    border-left: 5px solid var(--Desaturated-Dark-Cyan);
+    margin: 15px 0;
+    overflow-y: scroll;
+    z-index: 1;
+    position: relative;
+  }
+
+  .prof{
+    display: none;
+  }
+  .mobileProf{
+    display: block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    top: 35px;
+    margin-left: -40%;
+    margin-top: 5%;
+    z-index: 2;
+  }
+
+  .mid{
+    /*border: 1px solid red;*/
+    width: 80%;
+    height: 70%;
+    border-bottom: 1px solid var(--Desaturated-Dark-Cyan);
+    padding-bottom: 15px;
+  }
+
+  .end{
+    padding-top: 10px;
+    /*border: 1px solid red;*/
+    height: 50%;
+    width: 70%;
+  }
+
+  .cats{
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    row-gap: 20px;
+  }
+
+  .cat{
+    background-color: var(--Light-Grayish-Cyan-Filter-Tablets);
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: 700;
+    color: var(--Desaturated-Dark-Cyan);
+    cursor: pointer;
+    font-size: 0.6em;
+    min-width: 55px;
+  }
+  
+  .top{
+    width: 100%;
+  }
+  
+  .new, .featured{
+    font-size: 0.5em;
+  }
+
+  li{
+    font-size: 0.8em;
+  }
+
+  .company, .position{
+    font-size: 0.8em;
+  }
+
+  .jobs{
+    
+  }
+
+  .headerBg{
+   background-image: url(../public/images/bg-header-mobile.svg); 
+   width: 100vw;
+  }
+
+  main{
+    margin-top: 16%;
+    /*border: 1px solid red;*/
+  }
+
+  .filterCont{
+    /*border: 1px solid blue;*/
+    height: 100px;
+    width: 45%;
+    padding: 10px 30px;
+    /*min-width: 330px;*/
+  }
+
+  .filters{
+    /*border: 1px solid red;*/
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    /*justify-items: right;*/
+    overflow-y: scroll;
+  }
+
+  .filter{
+    margin-bottom: 10px;
+  }
+
+}
+
+@media(max-width:483px){
+  .cats{
+    grid-template-columns: 40% 40%;
+  }
+}
+
+@media(max-width:500px){
+  .mid{
+    width: 100%;
+  }
+}
+
+@media(max-width:690px){
+  .filters{
+    grid-template-columns: 100%;
+  }
+}
+  
+
+@media(max-width:200px){
+  .filterCont{
+    padding: 10;
+  }
+}
+/*you were trying to fix the jampacked things in .mid*/
+@media(max-width:325px){
+ .cats{
+  grid-template-columns: 80%;
+ }
+}
+
+/*mobile*/

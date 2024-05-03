@@ -16,64 +16,53 @@ const [jobs, setJobs] = useState(()=>{
 const [filters, setFilters] = useState([])
 const [isFiltering, setIsFiltering] = useState(false)
 const [filteredList, setFilteredList] = useState([])
+const [prevList, setPrevList] = useState([])
 /*functions*/
-function handleFilter(filter){
+function handleFilter(filter, isLang){
 
   setIsFiltering(true)
   let newFilteredList = []
   /*change the filtered list broski!*/
-  let langExists = false
-  /*jobs.forEach(job=>{
-    let langs = job.languages
-    for(let i=0; i<langs.length; i++){
-      if(filter===langs[i]){
-        newFilteredList.push(job)
-      }
-    }
-  })*/
+
   
 
-
-  jobs.forEach(job=>{
-    //check languages
-    let langs = job.languages
- 
-
-    for(let i=0; i<(filters.length!=0?filters.length:1); i++){
-      if(filters.length===0){
-        if(job.role===filter || job.level===filter){
-        
+if(!isFiltering && !isLang){
+    newFilteredList = jobs.filter(job=>{
+      if(job.role===filter || job.level===filter ){
+        return job
+      }
+    })
+  
+  }else if(isLang && !isFiltering){
+   jobs.forEach(job=>{
+      let langs = job.languages
+      for(let i=0; i<langs.length; i++){
+        if(filter===langs[i]){
           newFilteredList.push(job)
-          //console.log(job)
-          console.log("i ran")
-        }
-      }else{
-        if(job.role===filters[i] || job.level===filters[i]){
-            //if the job isnt in the list already, add it
-          for(let j=0; j<newFilteredList.length; j++){
-            if(newFilteredList[j]!=job){
-              newFilteredList.push(job)
-            }
-          }
-          console.log("i also ran")
-          
-          //console.log(job)
         }
       }
-    }
-
-    for(let i=0; i<langs.length; i++){
-      if(filter===langs[i]){
-        newFilteredList.push(job)
+    })
+  }else if(isLang && isFiltering){
+    filteredList.forEach(job=>{
+      let langs = job.languages
+      for(let i=0; i<langs.length; i++){
+        if(filter===langs[i]){
+          newFilteredList.push(job)
+        }
       }
-    }
-
-    /*change the filtered list broski!*/
-    /*for(let i=0; i<(filters.length!=0?filters.length:3); i++){
-    
-    }*/
-  })
+    })
+  }
+  else{
+    newFilteredList = filteredList.filter(job=>{
+      if(job.role===filter || job.level===filter ){
+        return job
+      }
+    })
+  }
   setFilteredList(newFilteredList)
+
+
+  
   /*console.log(newFilteredList)*/
   let isIn = false
   //if its in dont run lmao*/
@@ -93,16 +82,29 @@ function handleFilter(filter){
     setFilters([...filters, filter])
   }
   
-  
+  //console.log(filters)
 
 }
 
 
-function handleDelete(index){
+function handleDelete(index, filter){
+  let newFilteredList = []
   setFilters(filters.filter(filter=>filter!=filters[index]))
   if(filters.length===1){
     setIsFiltering(false)
   }
+
+  /*if(filters.length!=1 && (index+1)===filters.length){
+    newFilteredList = filteredList.filter(job=>{
+      if(job.role===filters[index-1] || job.level===filters[index-1] ){
+        console.log(filters[index-1])
+      }
+    })
+    setFilteredList(newFilteredList)
+  }*/
+
+
+  //console.log(filter)
   //console.log(index)
 }
 
@@ -121,7 +123,7 @@ function handleClear(){
 
 //console.log(testJob)
   return <>
-  <img src="/images/bg-header-desktop.svg" alt="" className='headerBg' />
+  <div  alt="background" className='headerBg' />
  
   <main>
   {filters.length > 0 &&  <div className="filterCont">
@@ -131,7 +133,7 @@ function handleClear(){
     <span className="left">
       {filter}
     </span>
-    <img src="public\images\icon-remove.svg" alt="x" className="right" onClick={()=>{handleDelete(index)}} />
+    <img src="public\images\icon-remove.svg" alt="x" className="right" onClick={()=>{handleDelete(index, filter)}} />
   </div>
    })}
     </div>
@@ -143,7 +145,7 @@ function handleClear(){
       {/*JOBS*/}
 
       {(isFiltering?filteredList:jobs).map(job=>{
-            return <div className="job">
+            return <> <img src={job.logo} alt="prof" className='mobileProf' /> <div className="job">
              {/*profile*/}
              <img src={job.logo} alt="prof" className='prof' />
              {/*middle stuff*/}
@@ -175,13 +177,14 @@ function handleClear(){
                    {job.level}
                  </div>
                  {job.languages.map(lang=>{
-                   return <div className="cat" onClick={()=>handleFilter(lang)}>
+                   return <div className="cat" onClick={()=>handleFilter(lang, true)}>
                      {lang}
                    </div>
                  })}
                </div>
              </div>
            </div>
+           </>
       })}
 
 
