@@ -45,6 +45,6 @@ Users should be able to:
 ## Author
 
 - Website - [Add your name here](https://www.uzaymah.vercel.app)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/anosVoldigoad999)
+- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/AnosVoldigoad999)
 - Twitter - [@yourusername](https://www.twitter.com/Anos_Voldigoad4)
 
