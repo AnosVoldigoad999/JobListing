@@ -24,8 +24,28 @@ function handleFilter(filter, isLang){
   let newFilteredList = []
   /*change the filtered list broski!*/
 
+   /*console.log(newFilteredList)*/
+   let isIn = false
+   //if its in dont run lmao*/
+   if(filters.length<8 && filters.length!=0){
+     for(let i=0; i<filters.length; i++){
+       if(filters[i]===filter){
+         isIn = true
+         console.log("its in, genius...smh", isIn)
+       }
+     }
+ 
+     if(!isIn){
+       setFilters([...filters, filter])
+     }
+ 
+   }else if (filters.length!=8){
+     setFilters([...filters, filter])
+   }
   
-
+   
+  
+//actual listing
 if(!isFiltering && !isLang){
     newFilteredList = jobs.filter(job=>{
       if(job.role===filter || job.level===filter ){
@@ -43,6 +63,9 @@ if(!isFiltering && !isLang){
       }
     })
   }else if(isLang && isFiltering){
+    if(!isIn){
+      setPrevList([...prevList, filteredList])
+    }
     filteredList.forEach(job=>{
       let langs = job.languages
       for(let i=0; i<langs.length; i++){
@@ -53,6 +76,9 @@ if(!isFiltering && !isLang){
     })
   }
   else{
+    if(!isIn){
+      setPrevList([...prevList, filteredList])
+    }
     newFilteredList = filteredList.filter(job=>{
       if(job.role===filter || job.level===filter ){
         return job
@@ -63,25 +89,7 @@ if(!isFiltering && !isLang){
 
 
   
-  /*console.log(newFilteredList)*/
-  let isIn = false
-  //if its in dont run lmao*/
-  if(filters.length<8 && filters.length!=0){
-    for(let i=0; i<filters.length; i++){
-      if(filters[i]===filter){
-        isIn = true
-        console.log("its in, genius...smh", isIn)
-      }
-    }
-
-    if(!isIn){
-      setFilters([...filters, filter])
-    }
-
-  }else if (filters.length!=8){
-    setFilters([...filters, filter])
-  }
-  
+ 
   //console.log(filters)
 
 }
@@ -90,9 +98,12 @@ if(!isFiltering && !isLang){
 function handleDelete(index, filter){
   let newFilteredList = []
   setFilters(filters.filter(filter=>filter!=filters[index]))
+  setFilteredList(prevList[(prevList.length)-1])
+  prevList.pop()
   if(filters.length===1){
     setIsFiltering(false)
   }
+
 
   /*if(filters.length!=1 && (index+1)===filters.length){
     newFilteredList = filteredList.filter(job=>{
@@ -122,6 +133,7 @@ function handleClear(){
 
 
 //console.log(testJob)
+/*console.log(prevList , "prevlist")*/
   return <>
   <div  alt="background" className='headerBg' />
  
