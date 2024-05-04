@@ -145,7 +145,7 @@ function handleClear(){
     <span className="left">
       {filter}
     </span>
-    <img src="public\images\icon-remove.svg" alt="x" className="right" onClick={()=>{handleDelete(index, filter)}} />
+    <img src="public/images/icon-remove.svg" alt="x" className="right" onClick={()=>{handleDelete(index, filter)}} />
   </div>
    })}
     </div>
