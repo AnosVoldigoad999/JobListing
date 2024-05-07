@@ -5,118 +5,153 @@ import DATA from "./data.json"
 function App() {
 const [jobs, setJobs] = useState(()=>{
  let jobS = []
- DATA.forEach(dat=>{
+ /*DATA.forEach(dat=>{
   jobS.push(dat)
+ })*/
+
+ jobS =  DATA.map(dat=>{
+  //make a new key-value pair called filters with the "filters"
+  let langs = dat.languages //get the languages
+  let filterS = [dat.level, dat.role] //create a mini filter, and add the neccessary stuff
+  langs.forEach(lang=>{
+    filterS.push(lang)//add all the languages to the mini filter
+  })
+  return {...dat, filters: filterS} //add said key-value pair to each object in the array
  })
 
  return jobS
 });
 
 
+
+
 const [filters, setFilters] = useState([])
 const [isFiltering, setIsFiltering] = useState(false)
-const [filteredList, setFilteredList] = useState([])
+const [filteredList, setFilteredList] = useState(jobs)
 const [prevList, setPrevList] = useState([])
 /*functions*/
 function handleFilter(filter, isLang){
-
   setIsFiltering(true)
+  setFilteredList(jobs)
+  let isIn = false
   let newFilteredList = []
-  /*change the filtered list broski!*/
 
-   /*console.log(newFilteredList)*/
-   let isIn = false
-   //if its in dont run lmao*/
-   if(filters.length<8 && filters.length!=0){
-     for(let i=0; i<filters.length; i++){
-       if(filters[i]===filter){
-         isIn = true
-         console.log("its in, genius...smh", isIn)
+
+  //check if nothing is passed
+  
+
+  
+  //check if the filter is already in the list
+  for(let i=0; i<filters.length; i++){
+    if(filters[i]===filter){
+      isIn=true
+    }
+  }
+  //addtofilterList
+  if(!isIn && filter ){
+    setFilters([...filters, filter])
+
+    //actual filtering
+
+
+    if(filters.length<1){
+      jobs.forEach(job=>{
+        let filterS = job.filters
+       for(let i=0; i<filterS.length; i++){
+        if(filter === filterS[i]){
+          newFilteredList.push(job)
+        }
        }
-     }
- 
-     if(!isIn){
-       setFilters([...filters, filter])
-     }
- 
-   }else if (filters.length!=8){
-     setFilters([...filters, filter])
-   }
-  
-   
-  
-//actual listing
-if(!isFiltering && !isLang){
-    newFilteredList = jobs.filter(job=>{
-      if(job.role===filter || job.level===filter ){
-        return job
-      }
-    })
-  
-  }else if(isLang && !isFiltering){
-   jobs.forEach(job=>{
-      let langs = job.languages
-      for(let i=0; i<langs.length; i++){
-        if(filter===langs[i]){
-          newFilteredList.push(job)
-        }
-      }
-    })
-  }else if(isLang && isFiltering){
-    if(!isIn){
-      setPrevList([...prevList, filteredList])
+      })
+      setFilteredList(newFilteredList)
     }
+
+
+
+    if(filters.length>=1 && filter){
+      filters.forEach(fil=>{
+        newFilteredList = []
+        for(let i=0; i<filteredList.length; i++){
+          filteredList[i].filters.forEach(filt=>{
+            if(filt===fil){
+              newFilteredList.push(filteredList[i])
+            }
+          })
+        }
+        setFilteredList(newFilteredList)
+      })
+    }
+   newFilteredList = []
     filteredList.forEach(job=>{
-      let langs = job.languages
-      for(let i=0; i<langs.length; i++){
-        if(filter===langs[i]){
-          newFilteredList.push(job)
-        }
+      let filterS = job.filters
+     for(let i=0; i<filterS.length; i++){
+      if(filter === filterS[i]){
+        newFilteredList.push(job)
       }
+     }
     })
+    setFilteredList(newFilteredList)
+
   }
-  else{
-    if(!isIn){
-      setPrevList([...prevList, filteredList])
-    }
-    newFilteredList = filteredList.filter(job=>{
-      if(job.role===filter || job.level===filter ){
-        return job
-      }
-    })
-  }
-  setFilteredList(newFilteredList)
 
 
   
- 
-  //console.log(filters)
+  if(!filter){
+    filters.forEach((filter, index)=>{
+      if(index===0){ //only run for the first one
+        newFilteredList = [] 
+        for(let i=0; i<jobs.length; i++){
+          jobs[i].filters.forEach(filt=>{
+            if(filt===filter){
+              newFilteredList.push(jobs[i])
+            }
+          })
+        }
+        setFilteredList(newFilteredList)
+      }
 
+      if(index != filters.length-1 && index!=0){
+        newFilteredList = []
+        for(let i=0; i<filteredList.length; i++){
+          filteredList[i].filters.forEach(filt=>{
+            if(filt===filter){
+              newFilteredList.push(filteredList[i])
+            }
+          })
+        }
+        setFilteredList(newFilteredList)
+      }
+      
+    })
+   }
+
+
+
+
+
+
+
+
+
+
+ 
 }
 
 
 function handleDelete(index, filter){
-  let newFilteredList = []
   setFilters(filters.filter(filter=>filter!=filters[index]))
-  setFilteredList(prevList[(prevList.length)-1])
-  prevList.pop()
   if(filters.length===1){
     setIsFiltering(false)
   }
 
-
-  /*if(filters.length!=1 && (index+1)===filters.length){
-    newFilteredList = filteredList.filter(job=>{
-      if(job.role===filters[index-1] || job.level===filters[index-1] ){
-        console.log(filters[index-1])
-      }
-    })
-    setFilteredList(newFilteredList)
-  }*/
+  
+  let newFilteredList  = []
+  if(filters.length>1){
+    handleFilter() 
+  }
 
 
-  //console.log(filter)
-  //console.log(index)
+ 
 }
 
 function handleClear(){
@@ -183,17 +218,11 @@ function handleClear(){
      
              <div className="end">
                <div className="cats">
-                 <div className="cat" onClick={()=>handleFilter(job.role)}>
-                   {job.role}
-                 </div>
-                 <div className="cat" onClick={()=>handleFilter(job.level)}>
-                   {job.level}
-                 </div>
-                 {job.languages.map(lang=>{
-                   return <div className="cat" onClick={()=>handleFilter(lang, true)}>
-                     {lang}
-                   </div>
-                 })}
+               {job.filters.map(filter=>{
+                return <div className="cat" onClick={()=>handleFilter(filter)}>
+                  {filter}
+                </div>
+               })}
                </div>
              </div>
            </div>

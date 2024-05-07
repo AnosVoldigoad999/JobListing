@@ -350,9 +350,12 @@ main{
     font-size: 0.8em;
   }
 
-  .jobs{
-    
-  }
+ 
+.filter{
+  /*border: 1px solid red;*/
+  width: 80px;
+  font-size: 0.7em;
+}
 
   .headerBg{
    background-image: url(../public/images/bg-header-mobile.svg); 
@@ -399,7 +402,7 @@ main{
   }
 }
 
-@media(max-width:690px){
+@media(max-width:596px){
   .filters{
     grid-template-columns: 100%;
   }
