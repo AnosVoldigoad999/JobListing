@@ -28,7 +28,6 @@ const [jobs, setJobs] = useState(()=>{
 const [filters, setFilters] = useState([])
 const [isFiltering, setIsFiltering] = useState(false)
 const [filteredList, setFilteredList] = useState(jobs)
-const [prevList, setPrevList] = useState([])
 /*functions*/
 function handleFilter(filter, isLang){
   setIsFiltering(true)
@@ -37,7 +36,6 @@ function handleFilter(filter, isLang){
   let newFilteredList = []
 
 
-  //check if nothing is passed
   
 
   
@@ -141,6 +139,8 @@ function handleFilter(filter, isLang){
 function handleDelete(index, filter){
   setFilters(filters.filter(filter=>filter!=filters[index]))
   if(filters.length===1){
+    setFilters([])
+    setFilteredList(jobs)
     setIsFiltering(false)
   }
 
