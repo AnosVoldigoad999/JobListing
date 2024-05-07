@@ -157,7 +157,7 @@ function handleDelete(index, filter){
 function handleClear(){
   setFilters([])
   setIsFiltering(false)
-  setPrevList([])
+  setFilteredList(jobs)
 }
 
 
