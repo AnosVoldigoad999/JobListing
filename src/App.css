@@ -280,6 +280,7 @@ main{
     flex-direction: column;
     min-width: 0px;
     height: 290px;
+    width: 90%;
     align-items: start;
     border-left: 5px solid var(--Desaturated-Dark-Cyan);
     margin: 15px 0;
